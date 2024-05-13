@@ -1,37 +1,19 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import { ref, reactive, computed, onMounted } from 'vue'
-
-import fetchCount from './services/fetchCount'
+import { reactive } from 'vue'
+import Counter from './components/Counter.vue'
 
 interface AppInfo {
   name: string
   description: string
 }
 
-onMounted(() => {
-  fetchCount((initialCount) => {
-    count.value = initialCount
-  })
-})
-
-const count = ref(0)
-
-const nextCount = computed(() => {
-  if (count.value !== null) {
-    return count.value + 1
-  }
-  return null
-})
 
 const appInfo: AppInfo = reactive({
   name: 'Counter',
   description: 'An app you can count on - made with vue + ts'
 })
 
-function addCount(num: number) {
-  if (count.value !== null) count.value += num
-}
+
 </script>
 
 <template>
@@ -40,11 +22,9 @@ function addCount(num: number) {
       <h1>{{ appInfo.name }}</h1>
       <h2>{{ appInfo.description }}</h2>
     </div>
-    <p>{{ count }}</p>
-    <button @click="addCount">Add count</button>
   </header>
 
-  <RouterView />
+  <Counter></Counter>
 </template>
 
 <style scoped>
