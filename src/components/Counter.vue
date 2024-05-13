@@ -4,10 +4,12 @@ import fetchCount from '@/services/fetchCount'
 
 interface Props {
   limit: number
-  alertMessageOnLimit: string
+  alertMessageOnLimit?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  alertMessageOnLimit: 'You have reached the limit!'
+})
 
 onMounted(() => {
   fetchCount((initialCount) => {
@@ -25,6 +27,7 @@ const nextCount = computed(() => {
 })
 
 function addCount(num: number) {
+  console.log(num)
   if (count.value !== null) {
     if (count.value >= props.limit) {
       alert(props.alertMessageOnLimit)
@@ -38,6 +41,6 @@ function addCount(num: number) {
 <template>
   <div>
     <p>{{ count }}</p>
-    <button @click="addCount">Add count</button>
+    <button @click="addCount(1)">Add count</button>
   </div>
 </template>
