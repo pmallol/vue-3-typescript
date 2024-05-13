@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import fetchCount from '@/services/fetchCount';
+import fetchCount from '@/services/fetchCount'
+
+interface Props {
+  limit: number
+  alertMessageOnLimit: string
+}
+
+const props = defineProps<Props>()
 
 onMounted(() => {
   fetchCount((initialCount) => {
@@ -18,7 +25,13 @@ const nextCount = computed(() => {
 })
 
 function addCount(num: number) {
-  if (count.value !== null) count.value += num
+  if (count.value !== null) {
+    if (count.value >= props.limit) {
+      alert(props.alertMessageOnLimit)
+    } else {
+      count.value += num
+    }
+  }
 }
 </script>
 

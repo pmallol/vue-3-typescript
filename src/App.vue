@@ -24,7 +24,10 @@ const appInfo: AppInfo = reactive({
     </div>
   </header>
 
-  <Counter></Counter>
+  <Counter
+    :limit="10"
+    :alert-message-on-limit="'You have reached the limit!'"
+  ></Counter>
 </template>
 
 <style scoped>
