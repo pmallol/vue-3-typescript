@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
+
+import fetchCount from './services/fetchCount'
 
 interface AppInfo {
   name: string
   description: string
 }
+
+onMounted(() => {
+  fetchCount((initialCount) => {
+    count.value = initialCount
+  })
+})
 
 const count = ref(0)
 
