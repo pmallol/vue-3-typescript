@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { ref, reactive} from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 interface AppInfo {
   name: string
@@ -8,6 +8,13 @@ interface AppInfo {
 }
 
 const count = ref(0)
+
+const nextCount = computed(() => {
+  if (count.value !== null) {
+    return count.value + 1
+  }
+  return null
+})
 
 const appInfo: AppInfo = reactive({
   name: 'Counter',
